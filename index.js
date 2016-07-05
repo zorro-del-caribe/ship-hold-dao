@@ -1,6 +1,6 @@
 const dao = require('./lib/dao');
 
-module.exorts = function (sh) {
+module.exports = function (sh) {
   for (const modelName of sh.models()) {
     const model = sh.model(modelName);
     model.new = dao(model);
@@ -30,7 +30,7 @@ module.exorts = function (sh) {
     run(params = {}){
       const service = sh.model(this.name);
       return run.bind(this)(params)
-        .map(r=>service.new(r));
+        .then(rows=>rows.map(r=>service.new(r)));
     }
   });
 
