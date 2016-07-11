@@ -4,7 +4,10 @@
   "description": "data access object or model instance extension for ship-hold",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test node ./test/setup.js && node ./test/index.js | tap-spec"
+    "test": "node ./test/setup.js && node ./test/index.js | tap-spec"
+  },
+  "engines": {
+    "node": ">=6.0.0"
   },
   "keywords": [
     "dao",

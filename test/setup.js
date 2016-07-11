@@ -1,5 +1,21 @@
 const pg = require('pg');
-const connection = 'postgres://docker:docker@192.168.99.100:5432/ship-hold-dao-test';
+const url = require('url');
+
+
+const connection = {
+  protocol: 'postgres',
+  slashes: true,
+  hostname: process.env.DB_HOSTNAME || 'localhost',
+  port: process.env.DB_PORT || 5432,
+  pathname: '/' + process.env.DB_NAME || 'ship-hold-dao-test'
+};
+
+if (process.env.DB_USERNAME) {
+  const {username, password} = {username: process.env.DB_USERNAME, password: process.env.DB_PASSWORD};
+  connection.auth = [username, password].join(':')
+}
+
+const connectionString = url.format(connection);
 
 let remaining = 2;
 function jobDone () {
@@ -9,7 +25,7 @@ function jobDone () {
   }
 }
 
-pg.connect(connection, function (err, client, done) {
+pg.connect(connectionString, function (err, client, done) {
   if (err) {
     throw err;
   }
@@ -23,7 +39,7 @@ pg.connect(connection, function (err, client, done) {
 
     const createq = `CREATE TABLE users
     (
-    id integer PRIMARY KEY,
+    id serial PRIMARY KEY,
     age integer,
     name varchar(100),
     email varchar(100)
@@ -34,14 +50,13 @@ pg.connect(connection, function (err, client, done) {
         throw err;
       }
 
-      client.query(`INSERT INTO users VALUES(1, 29, 'Laurent', 'laurent34azerty@gmail.com');`, function (err, result) {
+      client.query(`INSERT INTO users (age,name,email) VALUES(29, 'Laurent', 'laurent34azerty@gmail.com');`, function (err, result) {
         if (err) {
           throw err;
         }
         done();
         pg.end();
       });
-
     });
   });
 });

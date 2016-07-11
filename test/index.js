@@ -59,9 +59,11 @@ test('create a new instance and save it', t=> {
       t.equal(instance.age, 55);
       t.equal(instance.name, 'Raymond');
       t.equal(instance.email, 'foo@bar.com');
+      t.ok(instance.id !== undefined);
       sh.stop();
       t.end();
-    });
+    })
+    .catch(err=>console.log(err))
 });
 
 test('update instance', t=> {
@@ -123,7 +125,7 @@ test('decorate run', t=> {
     });
 });
 
-test.skip('delete instance', t=> {
+test('delete instance', t=> {
   const instance = Users.new({id: 1});
   instance
     .delete()
