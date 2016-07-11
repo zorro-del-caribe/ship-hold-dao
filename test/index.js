@@ -1,6 +1,6 @@
 const test = require('tape');
 const shiphold = require('ship-hold');
-const extension = require('../index');
+const extension = require('../src/index');
 
 const sh = shiphold({
   hostname: '192.168.99.100',
