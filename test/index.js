@@ -3,10 +3,10 @@ const shiphold = require('ship-hold');
 const extension = require('../src/index');
 
 const sh = shiphold({
-  hostname: '192.168.99.100',
-  username: 'docker',
-  password: 'docker',
-  database: 'ship-hold-dao-test'
+  hostname: process.env.DB_HOSTNAME || '192.168.99.100',
+  username: process.env.DB_USERNAME || 'docker',
+  password: process.env.DB_PASSWORD || 'docker',
+  database: process.env.DB_NAME || 'ship-hold-dao-test'
 });
 const Users = sh.model('Users', function (sh) {
   return {
