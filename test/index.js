@@ -85,11 +85,11 @@ test('update instance', t=> {
     });
 });
 
-test('add instances adapter', t=> {
+test('add streamInstances adapter', t=> {
   Users
     .select()
     .where('id', 1)
-    .instances({}, function * () {
+    .streamInstances({}, function * () {
       try {
         while (true) {
           const row = yield;
@@ -108,11 +108,11 @@ test('add instances adapter', t=> {
     });
 });
 
-test('decorate run', t=> {
+test('add instances adapter', t=> {
   Users
     .select()
     .where('id', 1)
-    .run()
+    .instances()
     .then(function (result) {
       const row = result[0];
       t.equal(row.id, 1);

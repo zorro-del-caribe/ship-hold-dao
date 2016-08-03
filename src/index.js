@@ -17,7 +17,7 @@ module.exports = function (sh) {
   const run = sh.adapters.run;
 
   Object.assign(sh.adapters, {
-    instances(params = {}, sink){
+    streamInstances(params = {}, sink){
       const service = resolveInstanceFactory(this.name, sh);
       const iterator = sink();
       iterator.next();
@@ -35,7 +35,7 @@ module.exports = function (sh) {
         }
       });
     },
-    run(params = {}){
+    instances(params = {}){
       const service = resolveInstanceFactory(this.name, sh);
       return run.bind(this)(params)
         .then(rows=>rows.map(r=>service.new(r)));
