@@ -1,6 +1,6 @@
 {
   "name": "ship-hold-dao",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "data access object or model instance extension for ship-hold",
   "main": "./src/index.js",
   "scripts": {
